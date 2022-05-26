@@ -6,7 +6,7 @@
 
 
 import unittest
-from bm25 import BM25
+from bagmodels import BM25
 
 class TestBM25(unittest.TestCase):
     @classmethod
