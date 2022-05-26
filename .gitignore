@@ -1,5 +1,10 @@
 # Environment
 venv/
+.env
 
 # Cache/Binaries
 **/*.pyc
+
+# Distribution
+**/*.egg-info
+dist/

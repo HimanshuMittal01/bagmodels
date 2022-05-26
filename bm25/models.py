@@ -5,7 +5,6 @@
 """
 
 import os
-import argparse
 import joblib
 from math import log, sqrt
 from typing import List, Dict, Union, Tuple
@@ -320,31 +319,3 @@ class BM25:
         res = max(0.0, min(res, 1.0))
 
         return res
-
-
-# if __name__ == "__main__":
-#     # Parse arguments
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument(
-#         "-i", "--train-data-file", help="/path/to/data.csv", required=True
-#     )
-#     parser.add_argument("-o", "--save-path", help="/path/to/output/model.joblib")
-#     parser.add_argument("--k1", type=float, default=1.2, help="k1: model hyperparam")
-#     parser.add_argument("--k2", type=float, default=1.0, help="k2: model hyperparam")
-#     parser.add_argument("--b", type=float, default=0.75, help="b: model hyperparam")
-#     # TODO: Add option for resuming training
-#     args = parser.parse_args()
-
-#     # Load corpus
-#     import pandas as pd
-#     train_corpus = pd.read_csv(args.train_data_file, header=None).values.squeeze(1)
-
-#     # Train BM25
-#     # TODO: Change tokenizer based on component
-#     model = BM25(
-#         corpus=train_corpus, tokenizer=tokenize_default, k1=args.k1, k2=args.k2, b=args.b
-#     )
-
-#     # Save BM25
-#     if args.save_path:
-#         model.save(save_path=args.save_path)
