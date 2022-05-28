@@ -1,6 +1,6 @@
 # BagModels
 [![PyPI version](https://badge.fury.io/py/bagmodels.svg)](https://badge.fury.io/py/bagmodels)
-![Python tests](https://github.com/HimanshuMittal01/bm25/actions/workflows/python-app.yml/badge.svg)
+[![Python tests](https://github.com/HimanshuMittal01/bagmodels/actions/workflows/python-app.yml/badge.svg)](https://github.com/HimanshuMittal01/bagmodels/actions/workflows/python-app.yml)
 
 BagModels is a repository of various bag of words (BoW) algorithms in machine learning. Currently it includes OkapiBM25. More coming soon.
 
