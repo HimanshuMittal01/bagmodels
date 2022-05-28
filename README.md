@@ -14,6 +14,7 @@ pip install bagmodels
 
 ## Getting started
 
+### Basic usage
 ```py
 import re
 from bagmodels import BM25
@@ -34,6 +35,24 @@ model = BM25(corpus=corpus)
 # Similarity
 model.similarity("I love NLP model", "I like NLP model") # 0.775
 model.similarity("I love blah", "I love algorithms") # 0.446
+```
+
+### Save and reuse models
+```py
+# libaries imported and corpus already loaded before it
+model = BM25(corpus=corpus)
+
+# write to save path
+model.save("output/bm25_v1.jbl")
+
+# load again
+model = BM25.load("output/bm25_v1.jbl")
+
+# add documents if required
+model.resume(corpus=additonal_corpus)
+
+# predict / search / find / retrieve like
+model.similarity(doc_a, doc_b)
 ```
 
 ## Coming soon

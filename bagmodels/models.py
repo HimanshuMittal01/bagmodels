@@ -153,14 +153,14 @@ class BM25:
 
         return tfs, dfs, sum_doc_lens
 
-    def train(
+    def resume(
         self,
         corpus: Union[List[str], List[List[str]]],
         tokenizer: T_Tokenizer = tokenize_default,
         save_path: str = None,
     ) -> None:
         """
-        Train/Update current model on given corpus, retains previous documents as well
+        Resume/update current model on given corpus, retains previous documents as well
 
         Params
         -------------------------
