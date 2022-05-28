@@ -42,6 +42,7 @@ class BM25:
         self.k1 = k1
         self.k2 = k2
         self.b = b
+        self.tokenizer = tokenizer
 
         # Compute model
         self.tfs = []  # Term frequencies for each document: List[Dict[str,int]]
@@ -57,7 +58,7 @@ class BM25:
                     raise ValueError(
                         "'corpus' is not tokenized, thus 'tokenizer' must be defined"
                     )
-                corpus = tokenizer(corpus)
+                corpus = self.tokenizer(corpus)
 
             # Extract basic parameters
             tfs, dfs, sum_doc_lens = self._extract_params(corpus)
@@ -259,6 +260,10 @@ class BM25:
         Returns:
         bow: Bag of words of query
         """
+        if isinstance(query, str):
+            if self.tokenizer is None:
+                raise ValueError("'tokenizer' must be defined if query is not tokenized.")
+            query = self.tokenizer(query)
         bow = {}
         for token in query:
             if token in self.idfs:
