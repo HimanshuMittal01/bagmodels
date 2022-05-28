@@ -4,6 +4,7 @@
  @created on: 04-03-2022 15:06:33
 """
 
+import re
 from typing import List, Union, Callable
 
 # Type-aliases
@@ -13,19 +14,20 @@ T_Tokenizer_Returns = Union[List[List[str]], List[str]]
 T_Tokenizer = Callable[[*T_Tokenizer_Args], T_Tokenizer_Returns]
 
 # Tokenizer functions
-def tokenize_default(corpus: T_Documents) -> T_Tokenizer_Returns:
-    import re
+def tokenize_default(documents: T_Documents) -> T_Tokenizer_Returns:
+    return_single_document = False
+    if isinstance(documents, str):
+        documents = [documents]
+        return_single_document = True
 
-    # Initiate
-    tokenized_corpus = [None]*len(corpus)
+    tokenized_documents = [None]*len(documents)
+    for i, document in enumerate(documents):
+        tokenized_documents[i] = (
+            re.sub("\s+", " ", document.strip().lower()).split(' ')
+        )
 
-    # Cleaner
-    for doc_id, s in enumerate(corpus):
-        tokenized_corpus[doc_id] = re.sub(r'[\W]+', ' ', s)
-
-    # whitespace tokenization
-    for doc_id, s in enumerate(tokenized_corpus):
-        tokenized_corpus[doc_id] = s.strip().split(' ')
-        tokenized_corpus[doc_id] = list(map(lambda x:x.lower(), corpus[doc_id]))
-    
-    return tokenized_corpus
+    return (
+        tokenized_documents
+        if not return_single_document
+        else tokenized_documents[0]
+    )

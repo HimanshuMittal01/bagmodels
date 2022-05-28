@@ -54,7 +54,7 @@ class BM25:
         if corpus is not None:
             # Tokenize documents if needed
             if isinstance(corpus[0], str):
-                if tokenizer is None:
+                if self.tokenizer is None:
                     raise ValueError(
                         "'corpus' is not tokenized, thus 'tokenizer' must be defined"
                     )
@@ -270,7 +270,6 @@ class BM25:
                 bow[token] = bow.get(token, 0) + 1
 
         for token in bow.keys():
-            # TODO: Think what is better? len(query) or len(bow.keys())?
             bow[token] = self.idfs[token] * self.get_freq_imp(bow[token], len(query))
 
         return bow

@@ -6,7 +6,7 @@
 
 
 import unittest
-from bagmodels import BM25
+from bagmodels import BM25, whitespace_tokenizer
 
 class TestBM25(unittest.TestCase):
     @classmethod
@@ -25,7 +25,7 @@ class TestBM25(unittest.TestCase):
         ]
 
         # Load BM25 model
-        cls.bm25 = BM25(corpus=cls.tokenized_corpus, tokenizer=None, k1=1.1, k2=1.0, b=0.8)
+        cls.bm25 = BM25(corpus=cls.tokenized_corpus, tokenizer=whitespace_tokenizer, k1=1.1, k2=1.0, b=0.8)
     
     def test_corpus_size(self):
         """Check corpus size, must ignores empty documents"""
@@ -53,4 +53,8 @@ class TestBM25(unittest.TestCase):
         self.assertAlmostEqual(0.9444, self.bm25.idfs["experience"], delta=0.01)
         self.assertAlmostEqual(1.7917, self.bm25.idfs["moments"], delta=0.01)
         self.assertAlmostEqual(0.9444, self.bm25.idfs["of"], delta=0.01)
-
+    
+    def test_str_similarity(self):
+        """Check similarity on two untokenized strings/sentences"""
+        self.assertAlmostEqual(0.4302, self.bm25.similarity("scientist experience", "moments of scientist"), delta=0.001)
+        self.assertAlmostEqual(0.8924, self.bm25.similarity("fully thriving collection", "fully thriving packet"), delta=0.001)
